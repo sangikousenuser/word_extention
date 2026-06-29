@@ -5,6 +5,7 @@ $startupDir = Join-Path $env:APPDATA "Microsoft\Word\STARTUP"
 $addinPath = Join-Path $startupDir $addinName
 $workDir = Join-Path $env:TEMP ("WordPdfCopyAddin_" + [guid]::NewGuid().ToString("N"))
 $vbaPath = Join-Path $workDir "WordPdfCopyAddin.bas"
+$tempAddinPath = Join-Path $workDir $addinName
 
 function Write-Info($message) {
     Write-Host "[Word PDF Copy Add-in] $message"
@@ -315,12 +316,15 @@ try {
         $word = New-Object -ComObject Word.Application
         $word.Visible = $false
         $word.DisplayAlerts = 0
+        $word.AutomationSecurity = 3
+        $word.Options.SaveNormalPrompt = $false
 
         $document = $word.Documents.Add()
+        $document.Content.Text = "Word PDF Copy Add-in"
         $document.VBProject.VBComponents.Import($vbaPath) | Out-Null
 
-        Write-Info "Saving template add-in."
-        $document.SaveAs2($addinPath, 15)
+        Write-Info "Saving template add-in to temporary folder."
+        $document.SaveAs2([ref]$tempAddinPath, [ref]15, [ref]$false, [ref]"", [ref]$false, [ref]"", [ref]$false, [ref]$false, [ref]$false, [ref]$false, [ref]$false, [ref]$false, [ref]$false, [ref]$false, [ref]0, [ref]$false, [ref]$false)
         $document.Close($false)
         $document = $null
     } finally {
@@ -337,8 +341,11 @@ try {
     }
 
     Write-Info "Adding ribbon UI."
-    Add-ZipEntryFromString -zipPath $addinPath -entryName "customUI/customUI.xml" -content $customUi
-    Upsert-RootRelationship -zipPath $addinPath
+    Add-ZipEntryFromString -zipPath $tempAddinPath -entryName "customUI/customUI.xml" -content $customUi
+    Upsert-RootRelationship -zipPath $tempAddinPath
+
+    Write-Info "Copying add-in to Word Startup folder."
+    Copy-Item -Path $tempAddinPath -Destination $addinPath -Force
 
     Write-Info "Installed: $addinPath"
     Write-Info "Restart Microsoft Word."
