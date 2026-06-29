@@ -52,4 +52,4 @@ ADDIN_BASE_URL=https://your-name.github.io/word_extention npm run build:producti
 
 Office Web アドインは OS ネイティブの Finder/Explorer ファイルコピーを直接操作できないため、クリップボード処理はホスト環境の Clipboard API 対応状況に依存します。
 
-リボンの `PDF作成` ボタンは直接処理を実行します。作業ウィンドウは手動実行や状態確認用です。
+リボンの `PDF作成` ボタンは作業ウィンドウを開き、処理を自動実行します。作業ウィンドウ内のボタンから手動で再実行することもできます。

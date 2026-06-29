@@ -8,6 +8,11 @@ Office.onReady(() => {
   setStatus("準備できました。");
   runButton.disabled = false;
   runButton.addEventListener("click", () => runExportFlow());
+
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("autorun") === "1") {
+    runExportFlow();
+  }
 });
 
 async function runExportFlow() {
