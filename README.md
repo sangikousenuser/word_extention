@@ -42,6 +42,20 @@ ADDIN_BASE_URL=https://your-name.github.io/word_extention npm run build:producti
 
 完全にローカル単体で、Web サーバーも HTTPS ホスティングも使わない形式にしたい場合は、Office.js アドインではなく Windows 専用の VSTO / COM アドインとして作る必要があります。VSTO / COM なら OS のファイル操作やクリップボード操作も強く扱えますが、macOS 版 Word では動きません。
 
+## Windows 完全ローカル版
+
+Windows 版 Word だけで使う場合は、`windows-local` フォルダの `.bat` インストーラーを使えます。これは Word の Startup フォルダに `.dotm` テンプレートアドインを作成する方式なので、GitHub Pages やローカルサーバーは不要です。
+
+```text
+windows-local\install_word_pdf_copy_addin.bat
+```
+
+アンインストール:
+
+```text
+windows-local\uninstall_word_pdf_copy_addin.bat
+```
+
 ## 動作
 
 1. 現在の文書を保存します。
