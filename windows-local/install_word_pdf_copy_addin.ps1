@@ -146,7 +146,15 @@ Private Const GMEM_MOVEABLE As Long = &H2
 Private Const GMEM_ZEROINIT As Long = &H40
 Private Const GHND As Long = GMEM_MOVEABLE Or GMEM_ZEROINIT
 
-Public Sub CreatePdfAndCopy(control As IRibbonControl)
+Public Sub CreatePdfAndCopy()
+    RunCreatePdfAndCopy
+End Sub
+
+Public Sub CreatePdfAndCopyRibbon(control As IRibbonControl)
+    RunCreatePdfAndCopy
+End Sub
+
+Private Sub RunCreatePdfAndCopy()
     On Error GoTo ErrorHandler
 
     If Documents.Count = 0 Then
@@ -290,7 +298,7 @@ $customUi = @'
                   imageMso="FileSaveAsPdfOrXps"
                   screentip="PDF作成"
                   supertip="現在の変更を保存し、PDF と DOCX を作成してファイルとしてクリップボードにコピーします。"
-                  onAction="CreatePdfAndCopy"/>
+                  onAction="CreatePdfAndCopyRibbon"/>
         </group>
       </tab>
     </tabs>

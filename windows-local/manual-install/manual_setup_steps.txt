@@ -1,0 +1,51 @@
+Word PDF Copy Add-in manual setup
+=================================
+
+This setup avoids automatic Word template generation. The BAT file only copies
+the macro file and these instructions. You will register the macro in Word.
+
+1. Close the automatic installer if it is still running.
+
+2. Open Microsoft Word.
+
+3. Enable the Developer tab if it is hidden:
+   File > Options > Customize Ribbon > check "Developer" > OK
+
+4. Open the VBA editor:
+   Developer > Visual Basic
+   or press Alt + F11
+
+5. In the left Project pane, select:
+   Normal
+
+6. Import the macro file:
+   File > Import File...
+   Select:
+   Documents\WordPdfCopyManualInstall\WordPdfCopyAddin.bas
+
+7. Save Normal.dotm:
+   In the VBA editor, press Ctrl + S.
+   If Word asks whether to save changes to Normal.dotm, choose Yes.
+
+8. Close and reopen Word.
+
+9. Add the macro to a ribbon button:
+   File > Options > Customize Ribbon
+   Choose commands from: Macros
+   Select: Normal.WordPdfCopyAddin.CreatePdfAndCopy
+   Click New Tab, rename it to PDF作成
+   Click New Group, rename it to PDF作成
+   Add the macro to that group.
+   Rename the button to PDF作成.
+   OK
+
+10. Use it:
+    Open a Word document and click the PDF作成 button.
+
+What the macro does:
+- Saves the current document.
+- Creates PDF and DOCX copies in:
+  Documents\WordPdfCopyExports
+- Copies those two files to the Windows file clipboard.
+
+After running the macro, paste into Explorer, email attachments, Teams, etc.
