@@ -314,17 +314,19 @@ try {
     try {
         Write-Info "Starting Word."
         $word = New-Object -ComObject Word.Application
-        $word.Visible = $false
+        $word.Visible = $true
         $word.DisplayAlerts = 0
         $word.AutomationSecurity = 3
         $word.Options.SaveNormalPrompt = $false
+        $word.Options.ConfirmConversions = $false
 
         $document = $word.Documents.Add()
         $document.Content.Text = "Word PDF Copy Add-in"
         $document.VBProject.VBComponents.Import($vbaPath) | Out-Null
 
         Write-Info "Saving template add-in to temporary folder."
-        $document.SaveAs2($tempAddinPath, 15)
+        $document.SaveAs($tempAddinPath, 15)
+        Write-Info "Template add-in saved."
         $document.Close($false)
         $document = $null
     } finally {
