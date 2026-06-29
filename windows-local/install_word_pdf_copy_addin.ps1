@@ -324,7 +324,7 @@ try {
         $document.VBProject.VBComponents.Import($vbaPath) | Out-Null
 
         Write-Info "Saving template add-in to temporary folder."
-        $document.SaveAs2([ref]$tempAddinPath, [ref]15, [ref]$false, [ref]"", [ref]$false, [ref]"", [ref]$false, [ref]$false, [ref]$false, [ref]$false, [ref]$false, [ref]$false, [ref]$false, [ref]$false, [ref]0, [ref]$false, [ref]$false)
+        $document.SaveAs2($tempAddinPath, 15)
         $document.Close($false)
         $document = $null
     } finally {
