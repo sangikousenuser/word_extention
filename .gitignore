@@ -1,0 +1,4 @@
+node_modules/
+dist/
+manifest.production.xml
+.DS_Store

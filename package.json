@@ -1,0 +1,21 @@
+{
+  "name": "word-pdf-copy-addin",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Word add-in that saves the current document, exports PDF/DOCX, and copies them to the clipboard when possible.",
+  "scripts": {
+    "dev": "vite --host localhost --port 3000",
+    "build": "vite build",
+    "build:production-manifest": "node scripts/make-production-manifest.mjs",
+    "preview": "vite preview --host localhost --port 3000",
+    "start:desktop": "office-addin-debugging start manifest.xml desktop",
+    "stop:desktop": "office-addin-debugging stop manifest.xml"
+  },
+  "dependencies": {
+    "@vitejs/plugin-basic-ssl": "^2.1.0",
+    "vite": "^7.0.0"
+  },
+  "devDependencies": {
+    "office-addin-debugging": "^6.0.4"
+  }
+}
